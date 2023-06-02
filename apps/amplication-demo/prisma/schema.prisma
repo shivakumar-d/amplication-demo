@@ -17,3 +17,21 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model Community {
+  audience               String?
+  communityAge           String?
+  communityBio           String?
+  communityInterest      String?
+  communityLanguage      String
+  communityMembers       String?
+  communityName          String   @unique
+  communityProf          String?
+  communityQualification String?
+  createdAt              DateTime @default(now())
+  id                     String   @id @default(auto()) @map("_id") @mongo.ObjectId
+  imageUrl               String
+  insights               String?
+  isActive               Boolean?
+  updatedAt              DateTime @updatedAt
+}
