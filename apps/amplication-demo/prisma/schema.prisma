@@ -17,3 +17,32 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model Community {
+  audience               String?
+  chats                  Chat[]
+  communityAge           String?
+  communityBio           String?
+  communityInterest      String?
+  communityLanguage      String
+  communityMembers       String?
+  communityName          String   @unique
+  communityProf          String?
+  communityQualification String?
+  createdAt              DateTime @default(now())
+  id                     String   @id @default(auto()) @map("_id") @mongo.ObjectId
+  imageUrl               String
+  insights               String?
+  isActive               Boolean?
+  updatedAt              DateTime @updatedAt
+}
+
+model Chat {
+  chatName      String
+  communityId   Community @relation(fields: [communityIdId], references: [id])
+  communityIdId String
+  createdAt     DateTime  @default(now())
+  id            String    @id @default(auto()) @map("_id") @mongo.ObjectId
+  messages      Json?
+  updatedAt     DateTime  @updatedAt
+}
