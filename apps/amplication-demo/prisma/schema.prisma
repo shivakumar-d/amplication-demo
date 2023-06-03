@@ -17,3 +17,49 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model Community {
+  audience               String?
+  chats                  Chat[]
+  communityAge           String?
+  communityBio           String?
+  communityInterest      String?
+  communityLanguage      String
+  communityMembers       String?
+  communityName          String   @unique
+  communityProf          String?
+  communityQualification String?
+  createdAt              DateTime @default(now())
+  id                     String   @id @default(auto()) @map("_id") @mongo.ObjectId
+  imageUrl               String
+  insights               String?
+  isActive               Boolean?
+  updatedAt              DateTime @updatedAt
+}
+
+model Chat {
+  chatName      String
+  communityId   Community @relation(fields: [communityIdId], references: [id])
+  communityIdId String
+  createdAt     DateTime  @default(now())
+  id            String    @id @default(auto()) @map("_id") @mongo.ObjectId
+  message       Message[]
+  messages      Json?
+  updatedAt     DateTime  @updatedAt
+}
+
+model Message {
+  agentIdtype String?
+  chatId      Chat      @relation(fields: [chatIdId], references: [id])
+  chatIdId    String
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(auto()) @map("_id") @mongo.ObjectId
+  isPoll      Boolean?
+  message     Message?  @relation(name: "MessageOnMessages", fields: [messageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  messageId   String?   @mongo.ObjectId
+  messages    Message[] @relation(name: "MessageOnMessages")
+  options     Json?
+  quesions    String?
+  updatedAt   DateTime  @updatedAt
+  userId      String?
+}
